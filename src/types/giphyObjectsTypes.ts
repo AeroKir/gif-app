@@ -112,3 +112,50 @@ export interface GifObject {
     count: number
   }
 }
+
+export interface SelectedGifObject {
+  type: string
+  id: string
+  title: string
+  slug: string
+  images: {
+    original: {
+      url: string
+      width: string
+      height: string
+      size: string
+      frames: string
+      mp4: string
+      mp4_size: string
+      webp: string
+      webp_size: string
+    }
+  }
+  user: {
+    avatar_url: string
+    banner_url: string
+    profile_url: string
+    username: string
+    display_name: string
+  }
+}
+
+export interface GifNotFoundObject {
+  type: string
+  id: string
+  title: string
+  slug: string
+  images: {
+    original: {
+      url: string
+      width: string
+      height: string
+      size: string
+      frames: string
+      mp4: string
+      mp4_size: string
+      webp: string
+      webp_size: string
+    }
+  }
+}
