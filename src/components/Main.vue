@@ -34,7 +34,7 @@
 
       <v-row class="d-flex align-center justify-center pt-10">
         <v-col cols="11" md="11" lg="8" xl="8">
-          <div v-if="!totalCount" class="d-flex flex-column align-center justify-center">
+          <div v-if="Object.keys(gifNotFound).length && !totalCount" class="d-flex flex-column align-center justify-center">
             <p class="mb-2">OOPS! Nothing was found (:</p>
             <v-img
               :width="gifNotFound.images.original.width"
@@ -105,18 +105,17 @@
   import type { Ref } from 'vue';
   import { useAppStore } from '@/store/appStore';
   import { useFetch } from '@/composable/useFetch';
-  import type { GifObject } from '@/types/giphyObjectsTypes';
+  import type { GifObject, GifNotFoundObject } from '@/types/giphyObjectsTypes';
   import throttle from '@/utils/throttle';
   import debounce from '@/utils/debounce';
 
   const store = useAppStore();
   const gifs = computed((): GifObject[] => store.getGifs.value);
   const totalCount = computed((): number => store.getTotalCount.value);
-  const gifNotFound = computed(() => store.getGifNotFound.value);
+  const gifNotFound = computed((): GifNotFoundObject => store.getGifNotFound.value);
   const isLoading = computed((): boolean => store.isLoading);
   const searchQuery: Ref<string> = ref('');
 
-  const throttledFetchData = throttle(handleScroll, 500);
   const handleSearch = debounce(() => {
     store.gifs = [];
     useFetch({search: searchQuery.value})
@@ -132,9 +131,11 @@
     }
   }
 
+  const throttledFetchData = throttle(handleScroll, 300);
+
   function handleGifSelect(gifId: string) {
     const rawGifs = toRaw(gifs.value);
-    const selectedGif = rawGifs.filter(gif => gif.id === gifId)[0];
+    const selectedGif: GifObject = rawGifs.filter(gif => gif.id === gifId)[0];
 
     store.setSelectedGif(selectedGif)
   }

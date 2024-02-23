@@ -7,13 +7,8 @@ export {}
 
 declare module 'vue' {
   export interface GlobalComponents {
-    Gif: typeof import('./src/components/Gif.vue')['default']
-    HelloWorld: typeof import('./src/components/HelloWorld.vue')['default']
-    InfiniteScroller: typeof import('./src/components/InfiniteScroller.vue')['default']
     Main: typeof import('./src/components/Main.vue')['default']
-    MasonryGrid: typeof import('./src/components/MasonryGrid.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
-    SearchInput: typeof import('./src/components/SearchInput.vue')['default']
   }
 }

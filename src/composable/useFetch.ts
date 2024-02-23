@@ -17,12 +17,30 @@ export function useFetch(options?: { search?: string }) {
   getData(endpoint)
     .then(data => {
       if (!data.pagination.total_count) {
+        if (Object.keys(store.gifNotFound).length) {
+          store.gifNotFound = {
+            type: '',
+            id: '',
+            title: '',
+            slug: '',
+            images: {
+              original: {
+                url: '',
+                width: '',
+                height: '',
+                size: '',
+                frames: '',
+                mp4: '',
+                mp4_size: '',
+                webp: '',
+                webp_size: '',
+              }
+            }
+          };
+        }
         getData(endpointNotFound)
           .then(data => {
-            console.log(data.data);
             const randomNotFoundGifObject = getRandomItemFromArray(data.data);
-            console.log(randomNotFoundGifObject);
-
 
             store.setGifNotFound(randomNotFoundGifObject);
             store.setLoading(false);

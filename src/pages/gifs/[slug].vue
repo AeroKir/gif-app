@@ -26,15 +26,15 @@
                 class="d-flex align-content-start flex-wrap pl-0"
                 variant="plain"
                 link
-                :to="`/${store.selectedGif.user.username}`"
-                :title="store.selectedGif.user.username"
+                :to="`/${selectedGif.user.username}`"
+                :title="selectedGif.user.username"
               >
                 <template v-slot:prepend>
                   <v-avatar color="blue-darken-2">
                     <v-img
                       width="50"
                       height="50"
-                      :src="store.selectedGif.user.avatar_url"
+                      :src="selectedGif.user.avatar_url"
                     >
                     <template v-slot:placeholder>
                       <div class="d-flex align-center justify-center fill-height">
@@ -50,16 +50,16 @@
               </v-card>
             </v-col>
             <v-col cols="12" md="9" class="d-flex flex-column align-center justify-center">
-              <h1 class="mb-1">{{ store.selectedGif.title }}</h1>
+              <h1 class="mb-1">{{ selectedGif.title }}</h1>
 
               <v-img
-                :width="store.selectedGif.images.original.width"
-                :height="store.selectedGif.images.original.height"
+                :width="selectedGif.images.original.width"
+                :height="selectedGif.images.original.height"
                 max-height="500"
-                :src="store.selectedGif.images.original.url"
+                :src="selectedGif.images.original.url"
               >
                 <template #sources>
-                  <source :srcset="store.selectedGif.images.original.webp">
+                  <source :srcset="selectedGif.images.original.webp">
                 </template>
                 <template v-slot:placeholder>
                   <div class="d-flex align-center justify-center fill-height">
@@ -130,17 +130,43 @@
 
 <script lang="ts" setup>
   import { onMounted, computed, toRaw } from 'vue';
-  import type { GifObject } from '@/types/giphyObjectsTypes';
+  import type { GifObject, SelectedGifObject } from '@/types/giphyObjectsTypes';
   import { useFetch } from '@/composable/useFetch';
   import { useAppStore } from '@/store/appStore';
 
   const store = useAppStore();
-  const gifs = computed((): GifObject[] => store.getGifs.value);
 
+  const gifs = computed((): GifObject[] => store.getGifs.value);
+  const selectedGif = computed((): SelectedGifObject => store.getSelectedGif.value);
   const isUserNameExist = Object.hasOwn(store.selectedGif, 'user');
 
   function handleGifSelect(gifId: string) {
-    store.selectedGif = {};
+    store.selectedGif = {
+      type: '',
+      id: '',
+      title: '',
+      slug: '',
+      images: {
+        original: {
+          url: '',
+          width: '',
+          height: '',
+          size: '',
+          frames: '',
+          mp4: '',
+          mp4_size: '',
+          webp: '',
+          webp_size: '',
+        }
+      },
+      user: {
+        avatar_url: '',
+        banner_url: '',
+        profile_url: '',
+        username: '',
+        display_name: '',
+      }
+    };
     const rawGifs = toRaw(gifs.value);
     const selectedGif = rawGifs.filter(gif => gif.id === gifId)[0];
     store.setSelectedGif(selectedGif)

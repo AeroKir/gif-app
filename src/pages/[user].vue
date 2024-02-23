@@ -24,6 +24,7 @@
               <v-btn
                 prepend-icon="mdi-arrow-left"
                 :to="`/gifs/${store.selectedGif.slug}`"
+                class="mb-4"
               >Back to Gif</v-btn>
               <v-card
                 class="d-flex align-content-start flex-wrap"
