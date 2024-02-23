@@ -35,7 +35,7 @@
       <v-row class="d-flex align-center justify-center pt-10">
         <v-col cols="11" md="11" lg="8" xl="8">
           <div v-if="Object.keys(gifNotFound).length && !totalCount" class="d-flex flex-column align-center justify-center">
-            <p class="mb-2 text-blue-grey-lighten-5">OOPS! Nothing was found (:</p>
+            <p class="mb-2 text-blue-grey-lighten-4">OOPS! Nothing was found (:</p>
             <v-img
               :width="gifNotFound.images.original.width"
               :height="gifNotFound.images.original.height"
