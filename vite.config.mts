@@ -11,7 +11,7 @@ import { fileURLToPath, URL } from 'node:url'
 
 // https://vitejs.dev/config/
 export default defineConfig({
-  base: 'https://aerokir.github.io/gif-app',
+  base: '/',
   plugins: [
     VueRouter(),
     Vue({
