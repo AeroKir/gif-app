@@ -4,6 +4,7 @@ import Vue from '@vitejs/plugin-vue'
 import Vuetify, { transformAssetUrls } from 'vite-plugin-vuetify'
 import ViteFonts from 'unplugin-fonts/vite'
 import VueRouter from 'unplugin-vue-router/vite'
+import { VitePWA } from 'vite-plugin-pwa'
 
 // Utilities
 import { defineConfig } from 'vite'
@@ -32,6 +33,13 @@ export default defineConfig({
           styles: 'wght@100;300;400;500;700;900',
         }],
       },
+    }),
+    VitePWA({
+      registerType: 'autoUpdate',
+      injectRegister: 'auto',
+      devOptions: {
+        enabled: true
+      }
     }),
   ],
   define: { 'process.env': {} },
