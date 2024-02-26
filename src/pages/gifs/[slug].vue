@@ -7,7 +7,7 @@
             <v-row class="d-flex align-center justify-center">
               <v-col cols="3" class="pl-xl-0">
                 <router-link to="/">
-                  <v-img height="50" src="@/assets/logo.png" />
+                  <v-img height="50" src="@/assets/logo.png" alt="Logo" />
                 </router-link>
               </v-col>
               <v-col cols="9" class="pr-xl-0">
@@ -19,8 +19,8 @@
 
       <v-row class="d-flex align-center justify-center pt-10">
         <v-col cols="12" md="8">
-          <v-row class="mb-8">
-            <v-col cols="12" md="3">
+          <v-row class="mb-8 align-center justify-center">
+            <v-col cols="12" sm="12" md="12" lg="3">
               <v-card
                 v-if="isUserNameExist"
                 class="d-flex align-content-start flex-wrap pl-0"
@@ -35,6 +35,7 @@
                       width="50"
                       height="50"
                       :src="selectedGif.user.avatar_url"
+                      :alt="`${selectedGif.user.username} avatar`"
                     >
                     <template v-slot:placeholder>
                       <div class="d-flex align-center justify-center fill-height">
@@ -57,6 +58,7 @@
                 :height="selectedGif.images.original.height"
                 max-height="500"
                 :src="selectedGif.images.original.url"
+                :alt="selectedGif.title"
               >
                 <template #sources>
                   <source :srcset="selectedGif.images.original.webp">
@@ -105,6 +107,7 @@
                   width="250"
                   :height="item.images.fixed_height_downsampled.height"
                   :src="item.images.fixed_height_downsampled.url"
+                  :alt="item.title"
                   cover
                 >
                   <template #sources>

@@ -7,7 +7,7 @@
             <v-row class="d-flex align-center justify-center">
               <v-col cols="3" class="pl-xl-0">
                 <router-link :to="`/gifs/${store.selectedGif.slug}`">
-                  <v-img height="50" src="@/assets/logo.png" />
+                  <v-img height="50" src="@/assets/logo.png" alt="Logo" />
                 </router-link>
               </v-col>
               <v-col cols="9">
@@ -33,6 +33,7 @@
               >
                 <v-img
                   :src="store.selectedGif.user.avatar_url"
+                  :alt="`${store.selectedGif.user.username} avatar`"
                   cover
                 ></v-img>
               </v-card>
