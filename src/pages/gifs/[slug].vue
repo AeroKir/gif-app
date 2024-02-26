@@ -20,7 +20,7 @@
       <v-row class="d-flex align-center justify-center pt-10">
         <v-col cols="12" md="8">
           <v-row class="mb-8 align-center justify-center">
-            <v-col cols="12" sm="12" md="12" lg="3">
+            <v-col cols="12" sm="12" md="12" lg="4" xl="3">
               <v-card
                 v-if="isUserNameExist"
                 class="d-flex align-content-start flex-wrap pl-0"
