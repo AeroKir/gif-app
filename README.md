@@ -25,7 +25,7 @@ A GIF app is a web app that can be installed on your smartphone or desktop as an
 ```
 git clone https://github.com/AeroKir/gif-app.git
 ```
-2. Install the dependencies and devDependencies and start the server.
+2. Install the dependencies and devDependencies
 ```
 cd gif-app
 npm i
