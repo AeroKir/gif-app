@@ -1,7 +1,8 @@
 <template>
   <v-container class="fill-height">
     <v-responsive class="align-center text-center fill-height">
-      <v-app-bar color="blue-grey-darken-4" class="py-6" density="compact" flat>
+      <PWAPrompt />
+      <v-app-bar color="blue-grey-darken-4" class="py-6 flex-column" density="compact" flat>
         <v-row class="d-flex align-center justify-center">
           <v-col cols="10" md="7" lg="7" xl="7" class="px-xl-0">
             <v-row class="d-flex align-center justify-center">
