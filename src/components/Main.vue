@@ -8,7 +8,7 @@
             <v-row class="d-flex align-center justify-center">
               <v-col cols="2" class="pl-xl-0">
                 <router-link to="/">
-                  <v-img src="@/assets/logo.png" />
+                  <v-img src="@/assets/logo.png" alt="Logo" />
                 </router-link>
               </v-col>
               <v-col cols="10" class="pr-xl-0">
@@ -41,6 +41,7 @@
               :width="gifNotFound.images.original.width"
               :height="gifNotFound.images.original.height"
               :src="gifNotFound.images.original.url"
+              :alt="gifNotFound.title"
               cover
             >
             <template #sources>
@@ -79,6 +80,7 @@
               ></v-btn>
               <v-img
                 :src="item.images.fixed_height_downsampled.url"
+                :alt="item.title"
                 cover
               >
                 <template #sources>
@@ -97,6 +99,21 @@
           </div>
         </v-col>
       </v-row>
+      <v-snackbar
+        v-model="snackbar"
+      >
+        {{ snackbarText }}
+
+        <template v-slot:actions>
+          <v-btn
+            color="pink"
+            variant="text"
+            @click="snackbar = false"
+          >
+            Close
+          </v-btn>
+        </template>
+      </v-snackbar>
     </v-responsive>
   </v-container>
 </template>
@@ -116,6 +133,8 @@
   const gifNotFound = computed((): GifNotFoundObject => store.getGifNotFound.value);
   const isLoading = computed((): boolean => store.isLoading);
   const searchQuery: Ref<string> = ref('');
+  const snackbar: Ref<boolean> = ref(false);
+  const snackbarText: Ref<string> = ref('Your link was copied to clipboard');
 
   const handleSearch = debounce(() => {
     store.gifs = [];
@@ -142,11 +161,19 @@
   }
 
   function handleShare(itemUrl: string, itemTitle: string) {
-    navigator.share({
-      title: itemTitle,
-      // text: 'Text to be shared',
-      url: itemUrl
-    })
+    if (navigator.share) {
+        navigator.share({
+          title: itemTitle,
+          text: 'Share this GIF!',
+          url: itemUrl
+        })
+        .then(() => console.log('Copied successful'))
+        .catch((error) => console.error('Sharing failed:', error));
+    } else {
+      navigator.clipboard.writeText(itemUrl)
+        .then(() => snackbar.value = true)
+        .catch((error) => console.error('Sharing failed:', error));
+    }
   }
 
   onMounted(() => {
